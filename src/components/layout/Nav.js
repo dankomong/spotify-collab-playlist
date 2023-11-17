@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { destroyCookie } from 'nookies';
 
 const Nav = ({ user }) => {
   const handleLogout = () => {
-    destroyCookie(null, 'accessToken');
+    sessionStorage.removeItem('encryptedAccessToken');
     window.location.href = '/login';
   };
 
@@ -13,7 +12,7 @@ const Nav = ({ user }) => {
       <ul>
         <li>
           <Link href="/">
-            <a>Home</a>
+            Home
           </Link>
         </li>
         <li>
