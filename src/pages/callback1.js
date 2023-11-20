@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { encryptAndStoreToken } from '../utilities/tokenUtils';
+import { encryptAndStoreToken } from '../utilities/spotify/tokenUtils';
 
 const Callback = () => {
   const router = useRouter();

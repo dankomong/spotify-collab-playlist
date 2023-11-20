@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Nav from '../components/layout/Nav';
-import { retrieveAndDecryptToken } from '../utilities/tokenUtils';
+import { retrieveAndDecryptToken } from '../utilities/spotify/tokenUtils';
 
 export default function Home() {
   const [name, setName ] = useState('')
+  const router = useRouter();
 
   useEffect(() => {
     const accessToken = retrieveAndDecryptToken();
     console.log('ACCESS TOKEN', accessToken)
-    // Make a GET request to the intermediary API route to fetch user playlists
-    fetch('/api/userCreds', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`, // Replace with your access token
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setName(data.userName); // Update state with fetched playlists
+    if (!accessToken) {
+      router.push('/login');
+    } else {
+      // Make a GET request to the intermediary API route to fetch user playlists
+      fetch('/api/userCreds', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Replace with your access token
+        },
       })
-      .catch((error) => {
-        console.error('Error fetching playlists:', error);
-      });
-  }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setName(data.userName); // Update state with fetched playlists
+        })
+        .catch((error) => {
+          console.error('Error fetching playlists:', error);
+        });
+    }
+  }, [router]);
 
 
   return (

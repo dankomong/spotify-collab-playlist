@@ -1,4 +1,4 @@
-import { fetchUserPlaylists } from '../../utilities/spotifyAPI'; // Import the function
+import { fetchUserPlaylists } from '../../utilities/spotify/spotifyAPI'; // Import the function
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {

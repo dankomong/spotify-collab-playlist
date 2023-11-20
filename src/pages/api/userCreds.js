@@ -1,4 +1,4 @@
-import { fetchUserName } from '../../utilities/spotifyAPI';
+import { fetchUserName } from '../../utilities/spotify/spotifyAPI';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
